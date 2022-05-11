@@ -1,5 +1,20 @@
 export default function Cell(props) {
+  let visualValue = ""
+  if (props.value === 1) {
+    visualValue = "X"
+  }
+  else if (props.value === 2) {
+    visualValue = "O"
+  }
   return (
-    <div dataRow={props.row} dataCol={props.col} className="bg-slate-200 w-32 h-32"></div>
+    <div
+      data-row={props.row}
+      data-col={props.col}
+      value={props.value}
+      onClick={props.handleClick}
+      className="bg-slate-200 w-32 h-32 cursor-pointer text-[60px] text-center leading-[8rem]"
+    >
+      {visualValue}
+    </div>
   )
 }
