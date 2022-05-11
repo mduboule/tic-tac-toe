@@ -4,19 +4,19 @@ import Cell from './Cell'
 export default function Game() {
   const initialGame = {
     status: "new", // "new" | "in progress" | "over"
-    winnder: "", // "X" | "O" | ""
+    winner: "", // "X" | "O" | ""
     round: 0, // maximum of 9
     grid: [[0, 0, 0], [0, 0, 0], [0, 0, 0]] // 0 = empty, 1 = X, 2 = O
   }
 
   const [game, setGame] = useState(initialGame)
 
+  // check for win
+  checkForWin() && setWinner(checkForWin())
+
   function handleChange(x, y) {
     // return if the cell isn't empty
     if (game.grid[x][y] !== 0) return
-
-    // check for win
-    checkForWin()
 
     // Update state
     setGame(prevGame => {
@@ -31,17 +31,74 @@ export default function Game() {
   }
 
   function checkForWin() {
-    console.log("Check for win…")
+    if (game.status === 'over') return
+
+    const g = game.grid
+
+    // Return winner number or 0
+    function checkCol(col) {
+      let value = g[col][0]
+      for (let i = 0; i < 3; i++) {
+        if (value === 0) return 0
+        if (value !== g[col][i]) return 0
+      }
+      return value
+    }
+
+    // Return winner number or 0
+    function checkRow(row) {
+      let value = g[row][0]
+      for (let i = 0; i < 3; i++) {
+        if (value === 0) return 0
+        if (value !== g[row][i]) return 0
+      }
+      return value
+    }
+
+    // Return winner number or 0
+    function checkDiagonals() {
+      // first diagonal
+      let value = g[0][0]
+      if (value === g[1][1] && value === g[2][2]) return value
+
+      // second diagonal
+      value = g[2][0]
+      if (value === g[1][1] && value === g[0][2]) return value
+      return 0
+    }
+    
+    function checkGrid() {
+      for (let i = 0; i < 3; i++) {
+        if (checkRow(i) > 0) return checkRow(i)
+        if (checkCol(i) > 0) return checkCol(i)
+      }
+      if (checkDiagonals() > 0) return checkDiagonals()
+    }
+
+    return checkGrid()
   }
 
-  const gameElements = game.grid.map((col, i) => {
-    return col.map((row, j) => {
+  function setWinner(winner) {
+    setGame(prevGame => (
+      {
+        ...prevGame,
+        status: 'over',
+        winner: winner
+      }
+    ))
+  }
+
+  // We loop over both arrays and use the indexes each time
+  // to define attributes. vertCols contains a single arrays
+  // of values that we can pass to the component.
+  const gameElements = game.grid.map((vertCols, i) => {
+    return vertCols.map((value, j) => {
       return (
         <Cell
           key={`${i}${j}`}
           row={j}
-          value={game.grid[i][j]}
           col={i}
+          value={value}
           handleClick={() => handleChange(i, j)}
         />
       )
