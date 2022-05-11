@@ -49,8 +49,14 @@ export default function Game() {
   })
 
   return (
-    <div className="grid grid-cols-3 grid-rows-3 gap-4 bg-black">
-      {gameElements}
-    </div>
+    <>
+      <button 
+        onClick={() => setGame(initialGame)}
+        className="block m-auto mb-8 px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+      >Start new game</button>
+      <div className="grid grid-cols-3 grid-rows-3 gap-1 bg-black">
+        {gameElements}
+      </div>
+    </>
   )
 }
