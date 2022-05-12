@@ -21,6 +21,12 @@ export default function Game() {
     checkForWin() && closeGame(checkForWin())
   }
 
+  /**
+   * A function used to update the Game state
+   * after a move. It takes two parameters that
+   * determine the position of the cell that was 
+   * updated.
+   */
   function handleChange(x, y) {
     // return if the game is over
     if (game.status === 'over') return
@@ -40,6 +46,15 @@ export default function Game() {
     })
   }
 
+  /**
+   * A function the contains all the logic
+   * for checking if a game contains contains
+   * a win.
+   *
+   * It checks all rows, cols and two diagonals 
+   * and returns 1 for a X win, 2 for a O win and
+   * 0 otherwise (draw and game in progress).
+   */
   function checkForWin() {
     if (game.status === 'over') return
 
@@ -88,6 +103,26 @@ export default function Game() {
     return checkGrid()
   }
 
+  /**
+   * A function used to reset the "board" after
+   * a game was a win or a draw. 
+   */
+  function resetGame() {
+    setGame(prevGame => (
+      {
+        ...initialGame,
+        scoreO: prevGame.scoreO,
+        scoreX: prevGame.scoreX
+      }
+    ))
+  }
+ 
+  /**
+   * A function needed at the end of the game
+   * for updating the Game state one final time,
+   * keeping track of the scores and generating
+   * a message.
+   */
   function closeGame(winner) {
     // Game is a draw
     if (winner === 0) {
@@ -98,18 +133,22 @@ export default function Game() {
       setFinalMessage(`Victory! Player ${winner === 1 ? 'X' : 'O'} for the win :)`)
     }
     if (game.status === 'over') return
-    setGame(prevGame => (
-      {
+    setGame(prevGame => {
+      const winnerScoreProp = winner === 1 ? 'scoreX' : 'scoreY'
+      return {
         ...prevGame,
         status: 'over',
-        winner: winner
+        winner: winner,
+        [winnerScoreProp]: prevGame[winnerScoreProp] + 1
       }
-    ))
+    })
   }
 
-  // We loop over both arrays and use the indexes each time
-  // to define attributes. vertCols contains a single arrays
-  // of values that we can pass to the component.
+  /**
+   * Generating the JSX elements to output in the Game
+   * component. This is done by looping over both arrays
+   * inside of game.grid.
+   */
   const gameElements = game.grid.map((vertCols, i) => {
     return vertCols.map((value, j) => {
       return (
@@ -130,7 +169,7 @@ export default function Game() {
         <div className='absolute w-[33rem] p-8 rounded-xl border border-blue-800 bg-slate-200 drop-shadow-xl top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 h-auto'>
           {game.status === 'over' && <h1 className='text-center text-5xl mb-8 leading-normal'>{finalMessage}</h1>}
           <button 
-            onClick={() => setGame(initialGame)}
+            onClick={resetGame}
             className={(game.status === 'over' ? 'block' : 'hidden') + ' m-auto mb-8 px-8 py-4 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'}
           >
             Start new game
