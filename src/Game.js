@@ -3,25 +3,49 @@ import Cell from './Cell'
 
 export default function Game() {
   const initialGame = {
-    status: 'new', // "new" | "in progress" | "over"
-    winner: 0, // 0 = no winner | 1 = X is winner | 2 = O is winner
-    round: 0, // maximum of 9
-    scoreO: 0,
-    scoreX: 0,
-    grid: [[0, 0, 0], [0, 0, 0], [0, 0, 0]] // 0 = empty, 1 = X, 2 = O
+    status: 'new',  // "new" | "in progress" | "over"
+    winner: 0,      // 0 = no winner | 1 = X is winner | 2 = O is winner
+    round: 0,       // maximum of 9
+    scoreO: 0,      // total score for X
+    scoreX: 0,      // total score for O
+    grid: [         // 0 = empty, 1 = X, 2 = O
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0]
+    ]
   }
 
   const [game, setGame] = useState(initialGame)
   const [finalMessage, setFinalMessage] = useState('')
 
   // check for draw
-  if (game.round === 9 && game.winner === 0 && game.status !== 'over') {
+  if (game.round === 9 && checkForWin() === 0) {
     closeGame(0)
   }
+  // check for win
   else {
-    // check for win
     checkForWin() && closeGame(checkForWin())
   }
+
+  /**
+   * Generating the JSX elements to output in the Game
+   * component. This is done by looping over both arrays
+   * inside of game.grid.
+   */
+  const gameElements = game.grid.map((vertCols, i) => {
+    return vertCols.map((value, j) => {
+      return (
+        <Cell
+          key={`${i}${j}`}
+          row={j}
+          col={i}
+          value={value}
+          handleClick={() => handleChange(i, j)}
+        />
+      )
+    })
+  })
+
 
   /**
    * A function used to update the Game state
@@ -102,7 +126,7 @@ export default function Game() {
       if (checkDiagonals() > 0) return checkDiagonals()
     }
 
-    return checkGrid()
+    return checkGrid() || 0
   }
 
   /**
@@ -150,25 +174,6 @@ export default function Game() {
       return newGame
     })
   }
-
-  /**
-   * Generating the JSX elements to output in the Game
-   * component. This is done by looping over both arrays
-   * inside of game.grid.
-   */
-  const gameElements = game.grid.map((vertCols, i) => {
-    return vertCols.map((value, j) => {
-      return (
-        <Cell
-          key={`${i}${j}`}
-          row={j}
-          col={i}
-          value={value}
-          handleClick={() => handleChange(i, j)}
-        />
-      )
-    })
-  })
 
   return (
     <>
