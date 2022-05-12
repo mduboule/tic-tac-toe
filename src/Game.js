@@ -191,10 +191,10 @@ export default function Game() {
       <div className='grid grid-cols-3 grid-rows-3 gap-1 bg-black'>
         {gameElements}
       </div>
-        <p className={((game.scoreO || game.scoreX) ? 'flex' : 'hidden') + ' text-gray-600 absolute w-full left-0 px-8 text-sm bottom-2 flex justify-between'}>
-          <span>Score X - {game.scoreX}</span>
-          <span>Score O - {game.scoreO}</span>
-        </p>
+      <p className={((game.scoreO || game.scoreX) ? 'flex' : 'hidden') + ' text-gray-600 absolute w-full left-0 px-8 text-sm bottom-2 flex justify-between'}>
+        <span>Score X - {game.scoreX}</span>
+        <span>Score O - {game.scoreO}</span>
+      </p>
     </>
   )
 }
