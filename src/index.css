@@ -5,3 +5,7 @@
 body {
   @apply bg-gradient-to-tr from-blue-700 via-blue-800 to-gray-900 h-screen flex justify-center items-center;
 }
+
+#root {
+  @apply w-full p-8 grid place-items-center;
+}

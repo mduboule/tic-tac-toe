@@ -178,7 +178,7 @@ export default function Game() {
   return (
     <>
       {game.status === 'over' &&
-        <div className='absolute w-[33rem] p-8 rounded-xl border border-blue-800 bg-slate-200 drop-shadow-xl top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 h-auto'>
+        <div className='absolute w-[calc(100vw-2rem)] max-w-lg p-8 rounded-xl border border-blue-800 bg-slate-200 drop-shadow-xl top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 h-auto'>
           {game.status === 'over' && <h1 className='text-center text-5xl mb-8 leading-normal'>{finalMessage}</h1>}
           <button 
             onClick={resetGame}
