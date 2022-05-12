@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/mduboule/tic-tac-toe/static/css/main.ada20e8a.css",
-    "main.js": "/mduboule/tic-tac-toe/static/js/main.6683dd5c.js",
-    "index.html": "/mduboule/tic-tac-toe/index.html",
-    "main.ada20e8a.css.map": "/mduboule/tic-tac-toe/static/css/main.ada20e8a.css.map",
-    "main.6683dd5c.js.map": "/mduboule/tic-tac-toe/static/js/main.6683dd5c.js.map"
+    "main.css": "/tic-tac-toe/static/css/main.ada20e8a.css",
+    "main.js": "/tic-tac-toe/static/js/main.6683dd5c.js",
+    "index.html": "/tic-tac-toe/index.html",
+    "main.ada20e8a.css.map": "/tic-tac-toe/static/css/main.ada20e8a.css.map",
+    "main.6683dd5c.js.map": "/tic-tac-toe/static/js/main.6683dd5c.js.map"
   },
   "entrypoints": [
     "static/css/main.ada20e8a.css",
