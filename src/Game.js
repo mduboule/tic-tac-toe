@@ -64,10 +64,10 @@ export default function Game() {
 
     // Return winner number or 0
     function checkCol(col) {
-      let value = g[col][0]
+      let value = g[0][col]
       for (let i = 0; i < 3; i++) {
         if (value === 0) return 0
-        if (value !== g[col][i]) return 0
+        if (value !== g[i][col]) return 0
       }
       return value
     }
