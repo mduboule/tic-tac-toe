@@ -128,11 +128,11 @@ export default function Game() {
   function closeGame(winner) {
     // Game is a draw
     if (winner === 0) {
-      setFinalMessage('Aww nobody won…')
+      setFinalMessage('Aww nobody won… 😒')
     } 
     // Game is a win
     else {
-      setFinalMessage(`Victory! Player ${winner === 1 ? 'X' : 'O'} for the win :)`)
+      setFinalMessage(`Victory! Player ${winner === 1 ? 'X' : 'O'} for the win 🥳`)
     }
     if (game.status === 'over') return
     setGame(prevGame => {
@@ -186,7 +186,7 @@ export default function Game() {
       <div className='grid grid-cols-3 grid-rows-3 gap-1 bg-black'>
         {gameElements}
       </div>
-        <p className={((game.scoreO || game.scoreX) ? 'flex' : 'hidden') + ' absolute w-full left-0 px-8 text-sm bottom-2 flex justify-between'}>
+        <p className={((game.scoreO || game.scoreX) ? 'flex' : 'hidden') + ' text-gray-600 absolute w-full left-0 px-8 text-sm bottom-2 flex justify-between'}>
           <span>Score X - {game.scoreX}</span>
           <span>Score O - {game.scoreO}</span>
         </p>
