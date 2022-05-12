@@ -6,6 +6,8 @@ export default function Game() {
     status: 'new', // "new" | "in progress" | "over"
     winner: 0, // 0 = no winner | 1 = X is winner | 2 = O is winner
     round: 0, // maximum of 9
+    scoreO: 0,
+    scoreX: 0,
     grid: [[0, 0, 0], [0, 0, 0], [0, 0, 0]] // 0 = empty, 1 = X, 2 = O
   }
 
@@ -13,7 +15,7 @@ export default function Game() {
   const [finalMessage, setFinalMessage] = useState('')
 
   // check for draw
-  if (game.round == 9 && game.winner === 0 && game.status !== 'over') {
+  if (game.round === 9 && game.winner === 0 && game.status !== 'over') {
     closeGame(0)
   }
   else {
@@ -134,13 +136,18 @@ export default function Game() {
     }
     if (game.status === 'over') return
     setGame(prevGame => {
-      const winnerScoreProp = winner === 1 ? 'scoreX' : 'scoreY'
-      return {
+      const newGame = {
         ...prevGame,
         status: 'over',
-        winner: winner,
-        [winnerScoreProp]: prevGame[winnerScoreProp] + 1
+        winner: winner
       }
+      if (winner === 1) {
+        newGame.scoreX = prevGame.scoreX + 1
+      }
+      if (winner === 2) {
+        newGame.scoreO = prevGame.scoreO + 1
+      }
+      return newGame
     })
   }
 
@@ -179,6 +186,10 @@ export default function Game() {
       <div className='grid grid-cols-3 grid-rows-3 gap-1 bg-black'>
         {gameElements}
       </div>
+        <p className={((game.scoreO || game.scoreX) ? 'flex' : 'hidden') + ' absolute w-full left-0 px-8 text-sm bottom-2 flex justify-between'}>
+          <span>Score X - {game.scoreX}</span>
+          <span>Score O - {game.scoreO}</span>
+        </p>
     </>
   )
 }
