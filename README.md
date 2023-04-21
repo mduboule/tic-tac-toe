@@ -1,6 +1,6 @@
 # tic tac toe
 
-This is my first *solo* project using React.
+This is my first solo project using React.
 
 [https://mduboule.github.io/tic-tac-toe/](https://mduboule.github.io/tic-tac-toe/)
 
